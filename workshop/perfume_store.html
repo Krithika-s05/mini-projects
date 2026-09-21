@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Perfume Store</title>
+
+    <style>
+
+        * {
+            margin: 0;
+        }
+
+        /* Navigation Bar */
+        ul {
+            background-color: black;
+            color: rgb(238, 235, 235);
+            display: flex;
+            font-size: 15px;
+            list-style-type: none;
+            padding: 10px;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        /* Search Box and Button */
+        input,
+        .btn-1 {
+            padding: 10px;
+            border: none;
+        }
+
+        .btn-1 {
+            position: relative;
+            right: 6px;
+            background-color: greenyellow;
+            border: none;
+        }
+
+        input:focus {
+            outline: none;
+        }
+
+        .btn-1:hover {
+            background-color: red;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Product Card */
+        .card {
+            width: 270px;
+            height: 342px;
+            border: 2px solid gray;
+            line-height: 25px;
+            border-radius: 10px;
+            text-align: center;
+            overflow: hidden;
+            margin: 20px;
+            transition: 0.5s ease;
+            box-shadow: 3px 10px 20px rgb(107, 106, 106);
+        }
+
+        .card:hover {
+            cursor: pointer;
+            box-shadow: 3px 10px 20px rgb(50, 50, 50);
+            transform: scale(1.03);
+        }
+
+        /* Product Image */
+        img {
+            width: 100%;
+            height: 170px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        /* Heading */
+        .heading {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        /* Buy Button */
+        .card-btn {
+            width: 100%;
+            padding: 10px;
+            margin-top: 11px;
+            background-color: rgb(0, 200, 255);
+            color: rgb(37, 35, 35);
+            border: none;
+        }
+
+        .card-btn:hover {
+            background-color: green;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Cards Container */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+
+    <ul>
+
+        <li>HOME</li>
+        <li>ABOUT</li>
+        <li>SERVICES</li>
+        <li>CONTACT US</li>
+        <li>REGISTER</li>
+        <li>LOGIN</li>
+
+        <div>
+
+            <input type="text" placeholder="Search here...">
+
+            <button class="btn-1">
+                SEARCH
+            </button>
+
+        </div>
+
+    </ul>
+
+
+    <!-- Product Cards -->
+
+    <div id="box" class="container">
+
+    </div>
+
+
+    <script>
+
+        /* 
+           Array containing 20 perfume brands
+        */
+
+        let brandNames = [
+
+            "CHANEL",
+            "DIOR",
+            "VERSACE",
+            "YSL",
+            "GUCCI",
+            "ARMANI",
+            "BURBERRY",
+            "CALVIN KLEIN",
+            "PACO RABANNE",
+            "HUGO BOSS",
+            "CAROLINA HERRERA",
+            "TOM FORD",
+            "DOLCE & GABBANA",
+            "LANCOME",
+            "MARC JACOBS",
+            "JEAN PAUL GAULTIER",
+            "JO MALONE",
+            "GIVENCHY",
+            "JIMMY CHOO",
+            "ISSEY MIYAKE"
+
+        ];
+
+
+        /*
+           Array containing 20 local images
+        */
+
+        let images = [
+
+            "image1.jpeg",
+            "image2.jpeg",
+            "image3.jpeg",
+            "image4.jpeg",
+            "image5.jpeg",
+            "image6.jpeg",
+            "image7.jpeg",
+            "image8.jpeg",
+            "image9.jpeg",
+            "image10.jpeg",
+            "image11.jpeg",
+            "image12.jpeg",
+            "image13.jpeg",
+            "image14.jpeg",
+            "image15.jpeg",
+            "image16.jpeg",
+            "image17.jpeg",
+            "image18.jpeg",
+            "image19.jpeg",
+            "image20.jpeg"
+
+        ];
+
+
+        /*
+           Product descriptions
+        */
+
+        let descriptions = [
+
+            "Elegant floral fragrance",
+            "Fresh and luxurious scent",
+            "Bold and refreshing fragrance",
+            "Sophisticated floral aroma",
+            "Rich and long-lasting fragrance",
+            "Smooth and modern fragrance",
+            "Classic and charming scent",
+            "Light and refreshing fragrance",
+            "Powerful and attractive fragrance",
+            "Warm and sophisticated scent",
+            "Sweet and feminine fragrance",
+            "Luxury fragrance with a rich aroma",
+            "Fresh and elegant fragrance",
+            "Sweet floral fragrance",
+            "Fresh and youthful scent",
+            "Strong and masculine fragrance",
+            "Elegant and natural fragrance",
+            "Unique and luxurious scent",
+            "Classic and stylish fragrance",
+            "Fresh and clean fragrance"
+
+        ];
+
+
+        /*
+           Product prices
+        */
+
+        let prices = [
+
+            8999,
+            7499,
+            6299,
+            9499,
+            8299,
+            7999,
+            6799,
+            5499,
+            7299,
+            6999,
+            8999,
+            11999,
+            6499,
+            7999,
+            7499,
+            8599,
+            9999,
+            7799,
+            5999,
+            6999
+
+        ];
+
+
+        /*
+           Product ratings
+        */
+
+        let ratings = [
+
+            9.2,
+            9.0,
+            8.8,
+            9.3,
+            9.1,
+            9.0,
+            8.7,
+            8.6,
+            9.1,
+            8.9,
+            9.2,
+            9.4,
+            8.8,
+            9.0,
+            8.9,
+            9.1,
+            9.3,
+            8.8,
+            8.7,
+            8.6
+
+        ];
+
+
+        /*
+           Generate 20 cards
+        */
+
+        for (let i = 0; i < 20; i++) {
+
+            document.getElementById("box").innerHTML += `
+
+                <div class="card">
+
+                    <img 
+                        src="${images[i]}" 
+                        alt="${brandNames[i]} Perfume"
+                    >
+
+                    <span class="heading">
+                        Title:
+                    </span>
+
+                    ${brandNames[i]}
+
+                    <br>
+
+
+                    <span class="heading">
+                        Price:
+                    </span>
+
+                    ₹${prices[i]}/-
+
+                    <br>
+
+
+                    <span class="heading">
+                        Desc:
+                    </span>
+
+                    ${descriptions[i]}
+
+                    <br>
+
+
+                    <span class="heading">
+                        Rating:
+                    </span>
+
+                    ${ratings[i]}
+
+                    <br>
+
+
+                    <button class="card-btn">
+                        BUY NOW
+                    </button>
+
+                </div>
+
+            `;
+
+        }
+
+    </script>
+
+</body>
+
+</html>

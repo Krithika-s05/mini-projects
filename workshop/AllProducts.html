@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Perfume Store - Products</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        /* NAVIGATION */
+
+        ul {
+            background-color: black;
+            color: white;
+
+            display: flex;
+
+            font-size: 15px;
+
+            list-style-type: none;
+
+            padding: 15px;
+
+            justify-content: space-around;
+
+            align-items: center;
+        }
+
+        ul a {
+            color: white;
+            text-decoration: none;
+        }
+
+        ul a:hover {
+            color: yellow;
+        }
+
+        /* SEARCH */
+
+        input {
+            padding: 10px;
+            border: none;
+            width: 180px;
+        }
+
+        input:focus {
+            outline: none;
+        }
+
+        .btn-1 {
+            padding: 10px;
+            border: none;
+            background-color: greenyellow;
+            cursor: pointer;
+        }
+
+        .btn-1:hover {
+            background-color: red;
+            color: white;
+        }
+
+        /* FILTER */
+
+        #dropdown {
+            padding: 8px;
+        }
+
+        /* TITLE */
+
+        h1 {
+            text-align: center;
+            margin: 25px;
+        }
+
+        /* PRODUCT CONTAINER */
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* CARD */
+
+        .card {
+            width: 270px;
+
+            min-height: 350px;
+
+            border: 2px solid gray;
+
+            line-height: 25px;
+
+            border-radius: 10px;
+
+            text-align: center;
+
+            overflow: hidden;
+
+            margin: 20px;
+
+            padding-bottom: 10px;
+
+            background-color: white;
+
+            transition: 0.5s;
+
+            box-shadow: 3px 10px 20px rgb(107, 106, 106);
+        }
+
+        .card:hover {
+            cursor: pointer;
+
+            transform: scale(1.03);
+
+            box-shadow: 3px 10px 20px rgb(50, 50, 50);
+        }
+
+        /* IMAGE */
+
+        .card img {
+            width: 100%;
+
+            height: 180px;
+
+            object-fit: contain;
+
+            border-radius: 6px;
+        }
+
+        /* TEXT */
+
+        .heading {
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        /* BUTTON */
+
+        .card-btn {
+            width: 90%;
+
+            padding: 10px;
+
+            margin-top: 10px;
+
+            background-color: red;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+        }
+
+        .card-btn:hover {
+            background-color: green;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVIGATION BAR -->
+
+    <ul>
+
+        <li>
+            <a href="./Home.html">HOME</a>
+        </li>
+
+        <li>
+            <a href="./About.html">ABOUT</a>
+        </li>
+
+        <li>
+            <a href="./ContactUs.html">CONTACT US</a>
+        </li>
+
+        <li>
+            <a href="./Register.html">REGISTER</a>
+        </li>
+
+        <li>
+            <a href="./Login.html">LOGIN</a>
+        </li>
+
+        <li>
+            <a href="./allProducts.html">ALL PRODUCTS</a>
+        </li>
+        <li>
+    <a href="./Cart.html">
+        CART
+    </a>
+</li>
+
+
+        <!-- PRICE FILTER -->
+
+        <select id="dropdown" onchange="handleDropDown()">
+
+            <option value="0">
+                All Prices
+            </option>
+
+            <option value="100">
+                Above ₹100
+            </option>
+
+            <option value="200">
+                Above ₹200
+            </option>
+
+        </select>
+
+
+        <!-- SEARCH -->
+
+        <div>
+
+            <input
+                type="text"
+                placeholder="Search product..."
+                id="search"
+            >
+
+            <button
+                class="btn-1"
+                onclick="handleClick()"
+            >
+                SEARCH
+            </button>
+
+        </div>
+
+    </ul>
+
+
+    <h1>🌸 Perfume Store 🌸</h1>
+
+
+    <!-- PRODUCTS WILL COME HERE -->
+
+    <div
+        id="box"
+        class="container"
+    >
+
+    </div>
+
+<script>
+
+    /* =========================
+       CART
+    ========================= */
+
+    let cart = [];
+
+
+    /* =========================
+       20 PERFUME PRODUCTS
+    ========================= */
+
+    let products = [
+
+        {
+            brand: "CHANEL",
+            name: "Coco Mademoiselle",
+            price: 8999,
+            image: "image1.jpeg",
+            rating: 9.2,
+            description: "Elegant and luxurious floral fragrance"
+        },
+
+        {
+            brand: "DIOR",
+            name: "Sauvage",
+            price: 7499,
+            image: "image2.jpeg",
+            rating: 9.0,
+            description: "Fresh and sophisticated fragrance"
+        },
+
+        {
+            brand: "VERSACE",
+            name: "Eros Eau de Toilette",
+            price: 6299,
+            image: "image3.jpeg",
+            rating: 8.8,
+            description: "Fresh and refreshing fragrance"
+        },
+
+        {
+            brand: "YSL",
+            name: "Eau de parfum",
+            price: 9499,
+            image: "image4.jpeg",
+            rating: 9.3,
+            description: "Fresh and woody aroma"
+        },
+
+        {
+            brand: "GUCCI",
+            name: "Guilty Pour Femme",
+            price: 8299,
+            image: "image5.jpeg",
+            rating: 9.1,
+            description: "Amber floral fragrance"
+        },
+
+        {
+            brand: "ARMANI",
+            name: "Acqua di Gio",
+            price: 7999,
+            image: "image6.jpeg",
+            rating: 9.0,
+            description: "Fresh and modern fragrance"
+        },
+
+        {
+            brand: "BURBERRY",
+            name: "Her",
+            price: 6799,
+            image: "image7.jpeg",
+            rating: 8.7,
+            description: "Sweet and charming scent"
+        },
+
+        {
+            brand: "CALVIN KLEIN",
+            name: "Euphoria",
+            price: 5499,
+            image: "image8.jpeg",
+            rating: 8.6,
+            description: "Sensual and refreshing fragrance"
+        },
+
+        {
+            brand: "PACO RABANNE",
+            name: "1 Million",
+            price: 5999,
+            image: "image9.jpeg",
+            rating: 8.8,
+            description: "Bold and luxurious fragrance"
+        },
+
+        {
+            brand: "HUGO BOSS",
+            name: "Eau de Toilette",
+            price: 6999,
+            image: "image10.jpeg",
+            rating: 9.0,
+            description: "Warm and woody fragrance"
+        },
+
+        {
+            brand: "CAROLINA HERRERA",
+            name: "Good Girl",
+            price: 8999,
+            image: "image11.jpeg",
+            rating: 9.2,
+            description: "Elegant and sophisticated scent"
+        },
+
+        {
+            brand: "TOM FORD",
+            name: "Black Orchid",
+            price: 10999,
+            image: "image12.jpeg",
+            rating: 9.4,
+            description: "Deep and luxurious fragrance"
+        },
+
+        {
+            brand: "DOLCE & GABBANA",
+            name: "Light Blue",
+            price: 6499,
+            image: "image13.jpeg",
+            rating: 8.9,
+            description: "Fresh Mediterranean fragrance"
+        },
+
+        {
+            brand: "LANCOME",
+            name: "La Vie Est Belle",
+            price: 7299,
+            image: "image14.jpeg",
+            rating: 9.0,
+            description: "Sweet and luxurious floral scent"
+        },
+
+        {
+            brand: "MARC JACOBS",
+            name: "Daisy Love",
+            price: 7599,
+            image: "image15.jpeg",
+            rating: 8.9,
+            description: "Radiant and playful fragrance"
+        },
+
+        {
+            brand: "JEAN PAUL GAULTIER",
+            name: "Le Male Le Parfum",
+            price: 8499,
+            image: "image16.jpeg",
+            rating: 9.1,
+            description: "Spicy and warm fragrance"
+        },
+
+        {
+            brand: "JO MALONE",
+            name: "Jo Malone English Pear & Freesia",
+            price: 9299,
+            image: "image17.jpeg",
+            rating: 9.3,
+            description: "Juicy and crisp fragrance"
+        },
+
+        {
+            brand: "GIVENCHY",
+            name: "L'Interdit",
+            price: 6999,
+            image: "image18.jpeg",
+            rating: 8.8,
+            description: "Bold and amber-floral fragrnce"
+        },
+
+        {
+            brand: "JIMMY CHOO",
+            name: "L'Eau Box",
+            price: 4999,
+            image: "image19.jpeg",
+            rating: 8.7,
+            description: "Floral and fruity fragrance"
+        },
+
+        {
+            brand: "ISSEY MIYAKE",
+            name: "L'Eau d'Issey",
+            price: 5299,
+            image: "image20.jpeg",
+            rating: 8.8,
+            description: "Clean and refreshing scent"
+        }
+
+    ];
+
+
+    /* =========================
+       DISPLAY PRODUCTS
+    ========================= */
+
+    function displayProducts(data) {
+
+        document.getElementById("box").innerHTML = "";
+
+
+        for (let i = 0; i < data.length; i++) {
+
+            document.getElementById("box").innerHTML += `
+
+                <div class="card">
+
+                    <img
+                        src="${data[i].image}"
+                        alt="${data[i].name}"
+                    >
+
+                    <span class="heading">
+                        Brand:
+                    </span>
+
+                    ${data[i].brand}
+
+                    <br>
+
+                    <span class="heading">
+                        Product:
+                    </span>
+
+                    ${data[i].name}
+
+                    <br>
+
+                    <span class="heading">
+                        Price:
+                    </span>
+
+                    ₹${data[i].price}
+
+                    <br>
+
+                    <span class="heading">
+                        Description:
+                    </span>
+
+                    ${data[i].description}
+
+                    <br>
+
+                    <span class="heading">
+                        Rating:
+                    </span>
+
+                    ⭐ ${data[i].rating}
+
+                    <br>
+
+                    <button
+                        class="card-btn"
+                        onclick="addToCart('${data[i].name}')"
+                    >
+                        ADD TO CART
+                    </button>
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+
+    /* =========================
+       SEARCH
+    ========================= */
+
+    function handleClick() {
+
+        let searchValue =
+            document.getElementById("search")
+            .value
+            .toLowerCase()
+            .trim();
+
+
+        let filteredProducts = products.filter(function(product) {
+
+            return (
+                product.brand.toLowerCase().includes(searchValue) ||
+                product.name.toLowerCase().includes(searchValue)
+            );
+
+        });
+
+
+        displayProducts(filteredProducts);
+
+    }
+
+
+    /* =========================
+       PRICE FILTER
+    ========================= */
+
+    function handleDropDown() {
+
+        let userPrice =
+            parseInt(
+                document.getElementById("dropdown").value
+            );
+
+
+        if (userPrice === 0) {
+
+            displayProducts(products);
+
+            return;
+
+        }
+
+
+        let filteredProducts =
+            products.filter(function(product) {
+
+                return product.price > userPrice;
+
+            });
+
+
+        displayProducts(filteredProducts);
+
+    }
+
+
+    /* =========================
+       ADD TO CART
+    ========================= */
+
+    function addToCart(productName) {
+
+    let product =
+        products.find(function(item) {
+
+            return item.name === productName;
+
+        });
+
+
+    if (product) {
+
+        cart.push(product);
+
+
+        localStorage.setItem(
+            "cart",
+            JSON.stringify(cart)
+        );
+
+
+        alert(
+            product.name + " added to cart!"
+        );
+
+    }
+
+}
+
+
+    /* =========================
+       DISPLAY PRODUCTS WHEN PAGE LOADS
+    ========================= */
+
+    displayProducts(products);
+
+</script>
+    
+
+</body>
+
+</html>
